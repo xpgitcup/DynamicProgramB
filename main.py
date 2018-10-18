@@ -11,6 +11,7 @@ try:
     dynamicModel.initModel(dataLines)
     dynamicModel.optimization()
     dynamicModel.displayResult()
+    dynamicModel.drawGraph()
     print("计算完成...")
 except IOError:
     print("文件不存在...")

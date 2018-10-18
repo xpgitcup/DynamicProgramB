@@ -1,3 +1,6 @@
+import networkx as nx
+import matplotlib.pyplot as plt
+
 class DynamicModel:
     nodes = []
     pathCost = []
@@ -117,4 +120,13 @@ class DynamicModel:
         # print(uu)
         uu.reverse()
         print(uu, "最短距离是：", self.strategyVector[m - 1][0]['distance'])
+        return
+
+    def drawGraph(self):
+        graph = nx.Graph()
+        for tmp in self.nodes:
+            for v in tmp:
+                graph.add_node(v)
+        nx.draw(graph)
+        plt.show()
         return

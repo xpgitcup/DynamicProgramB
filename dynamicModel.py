@@ -139,12 +139,9 @@ class DynamicModel:
                         print(self.pathCost[i - 1][j][k])
                         if (self.pathCost[i - 1][j][k] < 100):
                             q = self.pathCost[i - 1][j][k]
-                            # graph.add_edge(self.nodes[i-1][j], self.nodes[i][k])
                             start = self.nodes[i - 1][j]
                             stop = self.nodes[i][k]
                             graph.add_edge(start, stop, d=q)
-                            # graph.add_edge(self.nodes[i-1][j], self.nodes[i][k])
-                            # graph.add_weighted_edges_from([(start, stop, q)])
 
         # nx.draw(graph)
         # pos = nx.spring_layout(graph)
@@ -160,22 +157,22 @@ class DynamicModel:
         ddy = 0.25
         for i in range(len(self.nodes)):
             x = i * (4 + 0.2 * i)
-            # ddy = ddy * (-1)
-            dx = dx * (-1)
             for j in range(len(self.nodes[i])):
+                ddy = ddy * (-1)
+                dx = dx * (-1)
                 nn = len(self.nodes[i])
                 dy = 4
                 sty = (nn - 1) / 4 * -8
                 y = sty + j * dy
                 p = {self.nodes[i][j]: [x, y]}
-                ep = {self.nodes[i][j]: [x, y]}
+                ep = {self.nodes[i][j]: [x + dx, y +ddy]}
                 print(p, type(p))
                 pos.update(p)
                 epos.update(ep)
                 index += 1
         print(pos)
-        plt.xlim(-1, 25)
-        plt.ylim(-10, 10)
+        plt.xlim(-1, 35)
+        plt.ylim(-10, 8)
         nx.draw_networkx(graph, pos)
         # nx.draw_networkx_edge_labels(graph, pos=nx.spectral_layout(graph))
         nx.draw_networkx_edge_labels(graph, epos, rotate=True)

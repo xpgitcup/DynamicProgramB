@@ -1,5 +1,4 @@
 # 动态规划程序
-
 from dynamicModel import DynamicModel
 
 filename = "p.192-8.2.dat"

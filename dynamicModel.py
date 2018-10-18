@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
+
 class DynamicModel:
     nodes = []
     pathCost = []
@@ -100,7 +101,7 @@ class DynamicModel:
             # 阶段循环完成后，添加进决策列表
             self.strategyVector.append(ss)
 
-        #print("\n", self.strategyVector)
+        # print("\n", self.strategyVector)
         print("优化结果：")
         for v in self.strategyVector:
             print(v)
@@ -124,9 +125,62 @@ class DynamicModel:
 
     def drawGraph(self):
         graph = nx.Graph()
+        # 节点
         for tmp in self.nodes:
             for v in tmp:
                 graph.add_node(v)
-        nx.draw(graph)
+        # 边
+        for i in range(len(self.nodes)):
+            if i > 0:
+                nstart = len(self.nodes[i - 1])
+                nstop = len(self.nodes[i])
+                for j in range(nstart):
+                    for k in range(nstop):
+                        print(self.pathCost[i - 1][j][k])
+                        if (self.pathCost[i - 1][j][k] < 100):
+                            q = self.pathCost[i - 1][j][k]
+                            # graph.add_edge(self.nodes[i-1][j], self.nodes[i][k])
+                            start = self.nodes[i - 1][j]
+                            stop = self.nodes[i][k]
+                            graph.add_edge(start, stop, d=q)
+                            # graph.add_edge(self.nodes[i-1][j], self.nodes[i][k])
+                            # graph.add_weighted_edges_from([(start, stop, q)])
+
+        # nx.draw(graph)
+        # pos = nx.spring_layout(graph)
+        # pos = nx.circular_layout(graph)
+        # pos = nx.shell_layout(graph)
+        # pos = nx.spectral_layout(graph)
+        pos = {}
+        epos = {}
+        x = 0
+        y = 0
+        index = 0
+        dx = 0.35
+        ddy = 0.25
+        for i in range(len(self.nodes)):
+            x = i * (4 + 0.2 * i)
+            # ddy = ddy * (-1)
+            dx = dx * (-1)
+            for j in range(len(self.nodes[i])):
+                nn = len(self.nodes[i])
+                dy = 4
+                sty = (nn - 1) / 4 * -8
+                y = sty + j * dy
+                p = {self.nodes[i][j]: [x, y]}
+                ep = {self.nodes[i][j]: [x, y]}
+                print(p, type(p))
+                pos.update(p)
+                epos.update(ep)
+                index += 1
+        print(pos)
+        plt.xlim(-1, 25)
+        plt.ylim(-10, 10)
+        nx.draw_networkx(graph, pos)
+        # nx.draw_networkx_edge_labels(graph, pos=nx.spectral_layout(graph))
+        nx.draw_networkx_edge_labels(graph, epos, rotate=True)
+        # nx.draw_networkx(graph)
+        plt.title("DynamicPrograming")
+        plt.savefig("graph.png")
         plt.show()
         return

@@ -158,26 +158,27 @@ class DynamicModel:
         for i in range(len(self.nodes)):
             x = i * (4 + 0.2 * i)
             for j in range(len(self.nodes[i])):
-                ddy = ddy * (-1)
-                dx = dx * (-1)
+                #ddy = ddy * (-1)
+                #dx = dx * (-1)
                 nn = len(self.nodes[i])
                 dy = 4
                 sty = (nn - 1) / 4 * -8
                 y = sty + j * dy
                 p = {self.nodes[i][j]: [x, y]}
-                ep = {self.nodes[i][j]: [x + dx, y +ddy]}
+                #ep = {self.nodes[i][j]: [x + dx, y +ddy]}
                 print(p, type(p))
                 pos.update(p)
-                epos.update(ep)
+                #epos.update(ep)
                 index += 1
         print(pos)
         plt.xlim(-1, 35)
         plt.ylim(-10, 8)
         nx.draw_networkx(graph, pos)
         # nx.draw_networkx_edge_labels(graph, pos=nx.spectral_layout(graph))
-        nx.draw_networkx_edge_labels(graph, epos, rotate=True)
+        nx.draw_networkx_edge_labels(graph, pos, rotate=True, label_pos=0.8)
         # nx.draw_networkx(graph)
         plt.title("DynamicPrograming")
         plt.savefig("graph.png")
         plt.show()
+
         return

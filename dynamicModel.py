@@ -1,7 +1,6 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 
-
 class DynamicModel:
     nodes = []
     pathCost = []
@@ -171,7 +170,7 @@ class DynamicModel:
                 #epos.update(ep)
                 index += 1
         print(pos)
-        plt.xlim(-1, 35)
+        plt.xlim(-1, 33)
         plt.ylim(-10, 8)
         nx.draw_networkx(graph, pos)
         # nx.draw_networkx_edge_labels(graph, pos=nx.spectral_layout(graph))
